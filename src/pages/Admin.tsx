@@ -50,10 +50,15 @@ export default function Admin() {
   const pageRows = filtered.slice(start, end)
 
   function approve(id: number) {
-    const next = articles.map(a => a.id === id ? { ...a, status: 'approved' } : a)
+    const next = articles.map(a =>
+      a.id === id
+        ? { ...a, status: "approved" as const } // ✅ always approved
+        : a
+    )
     setArticles(next)
     setArticlesState(next)
   }
+
 
   function removeArticle(id: number) {
     setConfirmMsg('Are you sure you want to delete this article?')
